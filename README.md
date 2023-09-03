@@ -73,7 +73,8 @@
 
 ## Using Blade Syntax
 
-    // 1. **Variables**: You can display variables in Blade templates using double curly braces `{{ $variable }}`. For example:
+    // 1. **Variables**: You can display variables in Blade templates using double curly braces `{{ $variable }}`.
+
         {{ $name }}
 
     // 2. **Echoing Unescaped Data**: To output unescaped data, use `{!! $data !!}`. Be cautious with this as it doesn't escape HTML entities.
@@ -85,24 +86,25 @@
         {{-- This is a comment --}}
 
     // 4. **Control Structures**:
-    - **If Statements**: You can use `@if`, `@else`, and `@endif` to create conditional blocks.
+
+        - **If Statements**: You can use `@if`, `@else`, and `@endif` to create conditional blocks.
 
 
-        @if($condition)
-            // Code here
-        @elseif($anotherCondition)
-            // Code here
-        @else
-            // Code here
-        @endif
+            @if($condition)
+                // Code here
+            @elseif($anotherCondition)
+                // Code here
+            @else
+                // Code here
+            @endif
 
 
-    - **Loops**: Blade supports `@for`, `@foreach`, and `@while` loops.
+        - **Loops**: Blade supports `@for`, `@foreach`, and `@while` loops.
 
 
-        @foreach($items as $item)
-            // Code here
-        @endforeach
+            @foreach($items as $item)
+                // Code here
+            @endforeach
 
 
     // 1. **Include Partial Views**: You can include partial views using `@include`:

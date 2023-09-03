@@ -10,5 +10,9 @@
     <a href="/about"> About Page</a>
     <br />
     <a href="/contact"> Contact Page</a>
+    <br />
+    <br />
+    <br />
+    {{ "Date: " . date('Y-m-d') }}
 </body>
 </html>
