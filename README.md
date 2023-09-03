@@ -48,3 +48,107 @@
             use App\Http\Controllers\ExampleController;
 
             Route::get('/example', [<ExampleController::class>, contactPage]);
+
+## Views / Blade
+
+    # laravel views folder:
+        cd "~/<project-folder>/app/resources/views/"
+
+    # laravel blade file name style:
+        <file-name>.blade.php
+
+    # usage:
+        1) Open the <controller-name> file.
+        2) change the <method-name> return to view(<file-name-only>);
+
+    # Example:
+
+        public function <method-name>() {
+            return view(<file-name-only>);
+        }
+
+        public function index() {
+            return view('index_page');
+        }
+
+## Using Blade Syntax
+
+    1. **Variables**: You can display variables in Blade templates using double curly braces `{{ $variable }}`. For example:
+    ```php
+    {{ $name }}
+    ```
+
+    2. **Echoing Unescaped Data**: To output unescaped data, use `{!! $data !!}`. Be cautious with this as it doesn't escape HTML entities.
+
+    ```php
+    {!! $htmlContent !!}
+    ```
+
+    3. **Comments**: Blade provides a clean way to add comments using `{{-- This is a comment --}}`.
+
+    4. **Control Structures**:
+    - **If Statements**: You can use `@if`, `@else`, and `@endif` to create conditional blocks.
+
+        ```php
+        @if($condition)
+            // Code here
+        @elseif($anotherCondition)
+            // Code here
+        @else
+            // Code here
+        @endif
+        ```
+
+    - **Loops**: Blade supports `@for`, `@foreach`, and `@while` loops.
+
+        ```php
+        @foreach($items as $item)
+            // Code here
+        @endforeach
+        ```
+
+    1. **Include Partial Views**: You can include partial views using `@include`:
+
+    ```php
+    @include('partials.header')
+    ```
+
+    2. **Extending Layouts**: Blade templates allow you to create layouts and extend them using `@extends` and `@section` directives.
+
+    ```php
+    @extends('layouts.master')
+
+    @section('content')
+        // Content here
+    @endsection
+    ```
+
+    3. **Escaping Content**: Blade automatically escapes all output by default to prevent XSS attacks. You can use `@verbatim` to display raw content without escaping.
+
+    ```php
+    @verbatim
+        <div>{{ This will not be escaped }}</div>
+    @endverbatim
+    ```
+
+    4. **Blade Directives**: Laravel provides various Blade directives for common tasks, such as `@csrf`, `@method`, and `@auth`.
+
+    ```php
+    <form method="POST" action="/example">
+        @csrf
+        @method('PUT')
+        // Form fields
+    </form>
+    ```
+
+    ```php
+    @php
+        // Raw PHP code here
+    @endphp
+    ```
+
+    ```php
+    @unless($condition)
+        This will only display if the condition is false.
+    @endunless
+    ```

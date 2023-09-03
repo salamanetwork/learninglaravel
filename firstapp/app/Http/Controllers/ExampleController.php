@@ -7,11 +7,7 @@ use Illuminate\Http\Request;
 class ExampleController extends Controller
 {
     public function home() {
-        return '
-        <h1>Welcome to the Example Controller Page.</h1>
-        <br />
-        <a href="/">Home</a>
-        ';
+        return view('homepage');
     }
 
     public function contactPage() {

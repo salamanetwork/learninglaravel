@@ -17,13 +17,7 @@ use App\Http\Controllers\ExampleController as ExampleController;
 
 // Home Page [index]
 Route::get('/', function () {
-    return '
-    <h1>Welcome to the Home Page.</h1>
-    <br />
-    <a href="/about">About Page</a>
-    <br />
-    <a href="/contact">Contact Page</a>
-    ';
+    return view('homepage');
 });
 
 // About Page [index]
