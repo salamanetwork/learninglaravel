@@ -74,13 +74,15 @@
 ## Using Blade Syntax
 
     // 1. **Variables**: You can display variables in Blade templates using double curly braces `{{ $variable }}`. For example:
-    {{ $name }}
+        {{ $name }}
 
     // 2. **Echoing Unescaped Data**: To output unescaped data, use `{!! $data !!}`. Be cautious with this as it doesn't escape HTML entities.
 
-    {!! $htmlContent !!}
+        {!! $htmlContent !!}
 
     // 3. **Comments**: Blade provides a clean way to add comments using `{{-- This is a comment --}}`.
+
+        {{-- This is a comment --}}
 
     // 4. **Control Structures**:
     - **If Statements**: You can use `@if`, `@else`, and `@endif` to create conditional blocks.
@@ -105,34 +107,34 @@
 
     // 1. **Include Partial Views**: You can include partial views using `@include`:
 
-    @include('partials.header')
+        @include('partials.header')
 
     // 2. **Extending Layouts**: Blade templates allow you to create layouts and extend them using `@extends` and `@section` directives.
 
-    @extends('layouts.master')
+        @extends('layouts.master')
 
-    @section('content')
-        // Content here
-    @endsection
+        @section('content')
+            // Content here
+        @endsection
 
     // 3. **Escaping Content**: Blade automatically escapes all output by default to prevent XSS attacks. You can use `@verbatim` to display raw content without escaping.
 
-    @verbatim
-        <div>{{ This will not be escaped }}</div>
-    @endverbatim
+        @verbatim
+            <div>{{ This will not be escaped }}</div>
+        @endverbatim
 
     // 4. **Blade Directives**: Laravel provides various Blade directives for common tasks, such as `@csrf`, `@method`, and `@auth`.
 
-    <form method="POST" action="/example">
-        @csrf
-        @method('PUT')
-        // Form fields
-    </form>
+        <form method="POST" action="/example">
+            @csrf
+            @method('PUT')
+            // Form fields
+        </form>
 
-    @php
-        // Raw PHP code here
-    @endphp
+        @php
+            // Raw PHP code here
+        @endphp
 
-    @unless($condition)
-        This will only display if the condition is false.
-    @endunless
+        @unless($condition)
+            This will only display if the condition is false.
+        @endunless
