@@ -16,18 +16,10 @@ use App\Http\Controllers\ExampleController as ExampleController;
 */
 
 // Home Page [index]
-Route::get('/', function () {
-    return view('homepage');
-});
+Route::get('/', [ExampleController::class, "home"]);
 
 // About Page [index]
-Route::get('/about', function () {
-    return '
-        <h1>Welcome to the About Page.</h1>
-        <br />
-        <a href="/">Home Page</a>
-        ';
-});
+Route::get('/about', [ExampleController::class, "aboutPage"]);
 
 // Contact Page
 Route::get('/contact', [ExampleController::class, "contactPage"]);

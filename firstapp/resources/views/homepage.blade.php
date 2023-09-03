@@ -12,7 +12,15 @@
     <a href="/contact"> Contact Page</a>
     <br />
     <br />
+    My Pets' List:
+    <ul>
+        @foreach($pets as $pet)
+        <li>{{ $pet }}</li>
+        @endforeach
+    </ul>
     <br />
     {{ "Date: " . date('Y-m-d') }}
+    <br />
+    <h4>{{ "Created By: " . $name }}</h4>
 </body>
 </html>
