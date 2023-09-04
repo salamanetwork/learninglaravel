@@ -23,4 +23,9 @@ class UserController extends Controller
 
         return "Signup Successfully Done!";
     }
+
+    public function signin()
+    {
+
+    }
 }
