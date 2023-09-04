@@ -24,8 +24,28 @@ class UserController extends Controller
         return "Signup Successfully Done!";
     }
 
-    public function signin()
+    public function signin(Request $request)
     {
+        $data  = $request->validate([
+            'username' => ['required'],
+            'password' => ['required'],
+        ]);
+
+        // try to authenticate
+        if(auth()->attempt([
+            'username' => $data['username'],
+            'password' => $data['password']
+        ]))
+        {
+            // Store the authentication information in the session/Cookie
+            $request->session()->regenerate();
+
+            return "Authentication Success!";
+        }
+        else
+        {
+            return "Authentication Failure!";
+        }
 
     }
 }

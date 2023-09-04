@@ -1,4 +1,4 @@
-<x-guest_navbar>
+<x-user_navbar>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark  mt-2">
         <div class="container-fluid">
@@ -33,20 +33,9 @@
                     </ul>
                 </div>
 
-                <!-- Right-aligned login form (Inline Form) -->
-                <div class="col-lg-5 align-content-lg-end">
-
-                    @auth
-                        @include('user_nav')
-                    @else
-
-                        @include('signin_form')
-
-                    @endauth
-
-                </div>
+                @include('user_nav')
             </div>
         </div>
     </nav>
 
-</x-guest_navbar>
+</x-user_navbar>

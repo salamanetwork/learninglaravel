@@ -21,3 +21,5 @@ Route::get('/contact', function () {
 });
 
 Route::post('/user/signup', [UserController::class, "signup"]);
+
+Route::post('/user/signin', [UserController::class, "signin"]);

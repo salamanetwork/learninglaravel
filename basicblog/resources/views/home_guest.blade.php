@@ -4,6 +4,10 @@
 
     <div class="container-fluid">
         <div class="row">
+            @auth
+                @include('home_user')
+            @else
+
             <!-- Left Column (larger) -->
             <div class="col-md-10 mt-5 mb-5">
                 <h1 class="font-weight-bolder">Welcome to my Blog!</h1>
@@ -122,5 +126,8 @@
 
         </div>
     </div>
+
+            @endauth
+
 
 </x-layout>
