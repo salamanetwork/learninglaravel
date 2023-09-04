@@ -62,30 +62,55 @@
             <!-- Right Column (smaller) -->
             <div class="col-md-2  mt-2" style="background-color: #a1c2ab">
                 <h2>Sign Up</h2>
-                <form>
-                    <div class="form-group mt-2">
-                        <label for="firstName">First Name</label>
-                        <input type="text" class="form-control" id="firstName" placeholder="Enter your first name">
-                    </div>
-                    <div class="form-group mt-2">
-                        <label for="lastName">Last Name</label>
-                        <input type="text" class="form-control" id="lastName" placeholder="Enter your last name">
-                    </div>
+                <form method="POST" action="/user/signup">
+
+                    @csrf
+
                     <div class="form-group mt-2">
                         <label for="username">Username</label>
-                        <input type="text" class="form-control" id="username" placeholder="Choose a username">
+                        <input name="username" value="{{old('username')}}" type="text" class="form-control" id="username" placeholder="Choose a username">
+
+                        @error('username')
+                            <p class="alert alert-danger small m-0 shadow-sm">
+                                {{$message}}
+                            </p>
+                        @enderror
+
                     </div>
                     <div class="form-group mt-2">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                        <input name="email" value="{{old('email')}}" type="email" class="form-control" id="email" placeholder="Enter your email">
+
+                        @error('email')
+                            <p class="alert alert-danger small m-0 shadow-sm">
+                                {{$message}}
+                            </p>
+                        @enderror
+
                     </div>
                     <div class="form-group mt-2">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                        <input name="password" type="password" class="form-control" id="password" placeholder="Enter your password">
+
+
+                        @error('password')
+                            <p class="alert alert-danger small m-0 shadow-sm">
+                                {{$message}}
+                            </p>
+                        @enderror
+
                     </div>
                     <div class="form-group mt-2">
                         <label for="confirmPassword">Confirm Password</label>
-                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password">
+                        <input name="password_confirmation" type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password">
+
+
+                        @error('password_confirmation')
+                            <p class="alert alert-danger small m-0 shadow-sm">
+                                {{$message}}
+                            </p>
+                        @enderror
+
                     </div>
                     <div class="form-group mt-3 text-center">
                         <button type="submit" class="btn btn-dark btn-lg">Signup</button>
