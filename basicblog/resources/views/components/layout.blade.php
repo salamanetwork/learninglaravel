@@ -23,6 +23,7 @@
 <body style="background-color: #c0d1c5">
 
     <div class="container-fluid">
+        <div class="row col-lg-auto">
 
 <!-- Header Ends Here -->
 
@@ -34,8 +35,8 @@
 
 
 <!-- Footer Starts Here -->
-
-</div>
+        </div>
+    </div>
 <!-- End of page content -->
 
         <!-- Latest Popper.js and Bootstrap JavaScript from CDNs -->

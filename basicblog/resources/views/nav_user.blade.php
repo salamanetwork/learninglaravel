@@ -1,8 +1,8 @@
 <x-user_navbar>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark  mt-2">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <div class="row col-lg-12 mt-2">
+            <div class="row col-lg-12">
                 <!-- Brand -->
                 <div class="col-lg-2 align-content-lg-start">
                     <i class="bi bi-journal-code" style="font-size: 2rem; color: cornflowerblue;"></i>
