@@ -4,7 +4,7 @@
         <div class="row">
             <!-- Left Column (larger) -->
             <div class="col-md-12 mt-5 mb-5">
-                <h1 class="text-center font-weight-bolder">Welcome, <span style="color: darkred">{{ auth()->user()->username }}</span> to my Blog!</h1>
+                <h1 class="text-center font-weight-bolder">Welcome, <strong><span style="color: darkred">{{ auth()->user()->username }}</span></strong> to my Blog!</h1>
                 <hr />
                 <h5 class="mt-3">
                     <p class="text-center">

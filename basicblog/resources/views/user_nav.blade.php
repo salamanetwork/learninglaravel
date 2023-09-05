@@ -1,6 +1,9 @@
 <!-- Right-aligned login form (Inline Form) -->
                 <div class="col-lg-8 align-content-lg-end">
-                    <form class="form-inline">
+                    <form method="POST" action="/user/signout" class="form-inline">
+
+                        @csrf
+
                         <div class="input-group">
                             <i class="btn bi bi-search" style="font-size: 2rem; color: cornflowerblue;"></i>
                             <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>

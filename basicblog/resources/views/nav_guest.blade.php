@@ -49,4 +49,6 @@
         </div>
     </nav>
 
+    @include('flash')
+
 </x-guest_navbar>

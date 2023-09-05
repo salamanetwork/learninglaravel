@@ -19,9 +19,15 @@ class UserController extends Controller
 
         // Store the values comming from the form to the model
         // Using Model User model
-        User::create($data);
+        $user = User::create($data);
 
-        return "Signup Successfully Done!";
+        // Login the user automatically
+        auth()->login($user);
+
+        // success
+        // redirect the user back to the home page
+        // Setup a flash message too
+        return redirect('/')->with("success", "Successfully created a new user!");
     }
 
     public function signin(Request $request)
@@ -40,12 +46,25 @@ class UserController extends Controller
             // Store the authentication information in the session/Cookie
             $request->session()->regenerate();
 
-            return "Authentication Success!";
+            // success
+            // redirect the user back to the home page
+            // Setup a flash message too
+            return redirect('/')->with("success", "Successfully signed in!");
         }
         else
         {
-            return "Authentication Failure!";
+            // failure
+            // redirect the user back to the home page
+            // Setup a flash message too
+            return redirect('/')->with("failure", "Oops!, Something went wrong, please try to login again.");
         }
 
+    }
+
+    public function signout(Request $request)
+    {
+        auth()->logout();
+
+        return redirect('/')->with("success", "Successfully signed out!");;
     }
 }

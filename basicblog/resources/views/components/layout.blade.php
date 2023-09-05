@@ -26,7 +26,6 @@
 
 <!-- Header Ends Here -->
 
-
 <!-- Slots Starts Here -->
 
 {{ $slot }}

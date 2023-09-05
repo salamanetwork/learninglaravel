@@ -23,3 +23,5 @@ Route::get('/contact', function () {
 Route::post('/user/signup', [UserController::class, "signup"]);
 
 Route::post('/user/signin', [UserController::class, "signin"]);
+
+Route::post('/user/signout', [UserController::class, "signout"]);

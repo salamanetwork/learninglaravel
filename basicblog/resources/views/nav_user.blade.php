@@ -38,4 +38,6 @@
         </div>
     </nav>
 
+    @include('flash')
+
 </x-user_navbar>

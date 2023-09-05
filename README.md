@@ -308,3 +308,34 @@
                 }
         5. Run the migrations
            php artisan migrate
+
+## @csrf
+
+    In Laravel, `@csrf` is a Blade directive that is used to generate a hidden input field in HTML forms.
+
+    The term "CSRF" stands for Cross-Site Request Forgery, which is a type of security vulnerability where an attacker tricks a user into performing actions on a website without their knowledge or consent.
+
+    The `@csrf` directive is used to mitigate CSRF attacks in Laravel applications by including a unique CSRF token in forms. Here's how it works:
+
+       1. **Generating a CSRF Token**: When you include `@csrf` in a Blade template, Laravel generates a unique CSRF token for that form.
+
+       2. **Hidden Input Field**: The `@csrf` directive outputs an HTML hidden input field within the form, like this:
+
+           <input type="hidden" name="_token" value="your-unique-csrf-token">
+
+       3. The `name` attribute is set to "_token," and the `value` attribute contains the unique CSRF token.
+
+       4. **Verification on Form Submission**: When the user submits the form, the CSRF token is sent along with the form data. Laravel automatically checks if the received CSRF token matches the one stored in the user's session.
+
+       5. **Protection Against CSRF Attacks**: If the tokens match, the form submission is considered valid, and the action associated with the form is executed. If the tokens do not match or if there is no token, Laravel will reject the request, protecting your application from CSRF attacks.
+       Here's an example of how you would use `@csrf` in a Laravel Blade form:
+
+           <form method="POST" action="/your-route">
+               @csrf
+               <!-- Other form fields go here -->
+               <button type="submit">Submit</button>
+           </form>
+
+    In this example, `@csrf` generates the CSRF token input field, which is included in the form. When the form is submitted, Laravel will automatically validate the CSRF token, ensuring that the request is legitimate.
+
+    Using `@csrf` is an essential security measure in Laravel applications to protect against CSRF attacks. It's a straightforward way to enhance the security of your web forms and prevent unauthorized actions on your site.
