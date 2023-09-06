@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 use function Ramsey\Uuid\v1;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -45,6 +46,9 @@ class PostController extends Controller
     // Using Type Hint to fetch the data from the database
     public function showSinglePost(Post $post)
     {
+        // Support Markdown
+        $post['content'] = Str::markdown($post->content);
+
         // Passing the post to the blade template
         return view('single_post', ['post' => $post]);
     }
