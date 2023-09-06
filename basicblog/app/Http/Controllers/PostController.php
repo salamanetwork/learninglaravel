@@ -2,13 +2,50 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
+
+use function Ramsey\Uuid\v1;
 
 class PostController extends Controller
 {
     // Show Create post form
     public function create()
     {
+
         return view('create_post_form');
+    }
+
+    // submit form
+    public function submit(Request $request)
+    {
+        // Validate the incoming data from request
+        $data = $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+        ]);
+
+        // Apply modifications on the data
+        $data['title'] = strip_tags($data['title']);
+        $data['content'] = strip_tags($data['content']);
+
+        // Add Dynamic User ID from the current user session
+        $data['user_id'] = auth()->id();
+
+        // Store in database
+        // Using 'Post' model to store the data
+        // Remember to set the $fillable property in the Post Model
+        $submitedData = Post::create($data);
+
+        // Redirect to the submited post page
+        // last post id page
+        return redirect("/post/{$submitedData->id}");
+    }
+
+    // Using Type Hint to fetch the data from the database
+    public function showSinglePost(Post $post)
+    {
+        // Passing the post to the blade template
+        return view('single_post', ['post' => $post]);
     }
 }

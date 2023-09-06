@@ -31,3 +31,7 @@ Route::post('/user/signout', [UserController::class, "signout"]);
 
 // Post routes
 Route::get('/post/create', [PostController::class, "create"]);
+
+Route::post('/post/submit', [PostController::class, "submit"]);
+
+Route::get('/post/{post}', [PostController::class, "showSinglePost"]);
