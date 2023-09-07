@@ -68,6 +68,6 @@
     </x-layout>
 
 @else
-    @include('home_guest')
+    @include('signup_form')
 @endauth
 

@@ -8,6 +8,12 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+    // show signup form
+    public function signupForm()
+    {
+        return view("signup_form");
+    }
+
     public function signup(Request $request)
     {
         // Validate the data before submitting

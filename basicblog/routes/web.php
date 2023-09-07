@@ -22,16 +22,18 @@ Route::get('/contact', function () {
 });
 
 // User routes
-Route::post('/user/signup', [UserController::class, "signup"]);
+Route::get('/user/signup-form', [UserController::class, "signupForm"])->name("login");
 
-Route::post('/user/signin', [UserController::class, "signin"]);
+Route::post('/user/signup', [UserController::class, "signup"])->middleware('guest');
 
-Route::post('/user/signout', [UserController::class, "signout"]);
+Route::post('/user/signin', [UserController::class, "signin"])->middleware('guest');
+
+Route::post('/user/signout', [UserController::class, "signout"])->middleware('mustBeSignedIn');
 
 
 // Post routes
-Route::get('/post/create', [PostController::class, "create"]);
+Route::get('/post/create', [PostController::class, "create"])->middleware('mustBeSignedIn');
 
-Route::post('/post/submit', [PostController::class, "submit"]);
+Route::post('/post/submit', [PostController::class, "submit"])->middleware('mustBeSignedIn');
 
 Route::get('/post/{post}', [PostController::class, "showSinglePost"]);
