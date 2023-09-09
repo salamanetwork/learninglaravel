@@ -37,3 +37,10 @@ Route::get('/post/create', [PostController::class, "create"])->middleware('mustB
 Route::post('/post/submit', [PostController::class, "submit"])->middleware('mustBeSignedIn');
 
 Route::get('/post/{post}', [PostController::class, "showSinglePost"]);
+
+// Profile routes
+Route::get('/user/profile/posts', [UserController::class, "profilePosts"])->middleware('mustBeSignedIn');
+
+// to show url with the username not user id
+// Looked up by username in the database
+Route::get('/user/profile/{user:username}', [UserController::class, "profile"])->middleware('mustBeSignedIn');

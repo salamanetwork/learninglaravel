@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -71,6 +72,45 @@ class UserController extends Controller
     {
         auth()->logout();
 
-        return redirect('/')->with("success", "Successfully signed out!");;
+        return
+            redirect('/')
+                ->with(
+                    "success",
+                    "Successfully signed out!");
+    }
+
+    public function profilePosts(User $user)
+    {
+        // output: Gets logged in userid from session
+        $userId = auth()->user()->id;
+
+        return view("profile_posts", [
+
+            // output: Gets logged in username from session
+            'username' => auth()->user()->username,
+
+            // output: Gets posts counts
+            'currentUserPostsCount' => Post::where('user_id', $userId)->get()->count(),
+
+            // output: JSON Object Has Objects' of Data
+            'currentUserPosts' => Post::where('user_id', $userId)->latest()->get(),
+
+        ]);
+    }
+
+    public function profile(User $user)
+    {
+
+        return view("profile_posts", [
+
+            // output: Gets logged in username from database
+            'username' => $user->username,
+
+            // output: Gets posts counts
+            'currentUserPostsCount' => $user->post()->count(),
+
+            // output: JSON Object Has Objects' of Data
+            'currentUserPosts' => $user->post()->latest()->get(),
+        ]);
     }
 }

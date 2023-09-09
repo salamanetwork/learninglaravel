@@ -6,8 +6,8 @@
     <a class="btn btn-lg">
         <i class="btn bi bi-chat" style="font-size: 2rem; color: cornflowerblue;"></i>
     </a>
-    <a href="#">
-        <img class="avatar-tiny" src="https://gravatar.com/avatar/f64fc44c03a8a7eb1d52502950879659?s=128" />
+    <a href="/user/profile/posts">
+        <img class="avatar-tiny" src="https://1.gravatar.com/avatar/5db0999f9e2116f4c1c1e8e6774c5dbf265cf503867d3b6ab9d59552e38b05b7?size=128" />
     </a>
     &nbsp;&nbsp;&nbsp;&nbsp;
     <a class="btn btn-lg btn-success rounded" href="/post/create">
