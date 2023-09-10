@@ -47,4 +47,10 @@ Route::get('/user/profile/posts', [UserController::class, "profilePosts"])->midd
 Route::get('/user/profile/{user:username}', [UserController::class, "profile"])->middleware('mustBeSignedIn');
 
 // Delete Post from the database
-Route::delete('/post/delete/{post}', [PostController::class, 'deletePost'])->middleware('mustBeSignedIn');
+Route::delete('/post/delete/{post}', [PostController::class, 'deletePost'])->middleware('can:delete,post');
+
+// Show Update Form For The Post
+Route::get('/post/{post}/edit', [PostController::class, "edit"])->middleware('can:update,post');
+
+// Update Post
+Route::put('/post/{post}/update', [PostController::class, "update"])->middleware('can:update,post');

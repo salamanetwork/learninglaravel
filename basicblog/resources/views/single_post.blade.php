@@ -18,7 +18,7 @@
                     @can('update', $post)
 
                     <span class="pt-2">
-                        <a href="#" class="text-primary mr-2" data-toggle="tooltip" data-placement="top" title="Edit"><i class="bi bi-pencil-square" style="font-size: 1rem;"></i></a>
+                        <a href="/post/{{$post->id}}/edit" class="text-primary mr-2" data-toggle="tooltip" data-placement="top" title="Edit"><i class="bi bi-pencil-square" style="font-size: 1rem;"></i></a>
                         <form class="delete-post-form d-inline" action="/post/delete/{{$post->id}}" method="POST">
                             @method('DELETE')
                             @csrf

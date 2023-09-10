@@ -58,16 +58,20 @@ class PostController extends Controller
     {
         $title = $post->title;
 
-        if(auth()->user()->cannot('delete', $post))
-        {
-            return
-                redirect("/post/{$post}")
-                ->with(
-                    "failure",
-                    "Post ($title) cannot be deleted"
-                );
-        }
+        // We Used Middleware "can:delete,post" instead.
+        // if(auth()->user()->cannot('delete', $post))
+        // {
+        //     return
+        //         redirect("/post/{$post}")
+        //         ->with(
+        //             "failure",
+        //             "Post ($title) cannot be deleted"
+        //         );
+        // }
 
+
+        // You must provide middleware in web.php
+        // "can:delete,post" middleware
         $post->delete();
 
         return
@@ -77,4 +81,32 @@ class PostController extends Controller
                     "Post ($title) deleted successfully"
                 );
     }
+
+     // Show edit post form
+     public function edit(Post $post)
+     {
+
+         return view('edit_post_form', ['post' => $post]);
+     }
+
+     // Update post form
+     public function update(Post $post, Request $request)
+     {
+        $data = $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+        ]);
+
+        $data['title'] = strip_tags($data['title']);
+        $data['content'] = strip_tags($data['content']);
+
+        $post->update($data);
+
+        return
+            redirect("/post/{$post->id}")
+                ->with(
+                    "success",
+                    "Successfully updated"
+                );
+     }
 }
