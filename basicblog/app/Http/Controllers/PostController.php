@@ -52,4 +52,29 @@ class PostController extends Controller
         // Passing the post to the blade template
         return view('single_post', ['post' => $post]);
     }
+
+    // delete post from the database
+    public function deletePost(Post $post)
+    {
+        $title = $post->title;
+
+        if(auth()->user()->cannot('delete', $post))
+        {
+            return
+                redirect("/post/{$post}")
+                ->with(
+                    "failure",
+                    "Post ($title) cannot be deleted"
+                );
+        }
+
+        $post->delete();
+
+        return
+            redirect("/user/profile/posts")
+                ->with(
+                    "success",
+                    "Post ($title) deleted successfully"
+                );
+    }
 }

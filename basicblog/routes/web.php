@@ -31,6 +31,7 @@ Route::post('/user/signin', [UserController::class, "signin"])->middleware('gues
 Route::post('/user/signout', [UserController::class, "signout"])->middleware('mustBeSignedIn');
 
 
+
 // Post routes
 Route::get('/post/create', [PostController::class, "create"])->middleware('mustBeSignedIn');
 
@@ -44,3 +45,6 @@ Route::get('/user/profile/posts', [UserController::class, "profilePosts"])->midd
 // to show url with the username not user id
 // Looked up by username in the database
 Route::get('/user/profile/{user:username}', [UserController::class, "profile"])->middleware('mustBeSignedIn');
+
+// Delete Post from the database
+Route::delete('/post/delete/{post}', [PostController::class, 'deletePost'])->middleware('mustBeSignedIn');
