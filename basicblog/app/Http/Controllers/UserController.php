@@ -6,6 +6,8 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -89,6 +91,9 @@ class UserController extends Controller
             // output: Gets logged in username from session
             'username' => auth()->user()->username,
 
+            // output: Gets avatar from database
+            'avatar' => auth()->user()->avatar,
+
             // output: Gets posts counts
             'currentUserPostsCount' => Post::where('user_id', $userId)->get()->count(),
 
@@ -106,11 +111,56 @@ class UserController extends Controller
             // output: Gets logged in username from database
             'username' => $user->username,
 
+            // output: Gets avatar from database
+            'avatar' => $user->avatar,
+
             // output: Gets posts counts
             'currentUserPostsCount' => $user->post()->count(),
 
             // output: JSON Object Has Objects' of Data
             'currentUserPosts' => $user->post()->latest()->get(),
         ]);
+    }
+
+    public function showAvatarForm()
+    {
+        return view("avatar_form");
+    }
+
+    public function avatarSubmit(Request $request)
+    {
+        $user = auth()->user();
+
+        $request->validate([
+            'avatar' => ['required','image','mimes:jpeg,png,jpg,gif','max:3000'],
+        ]);
+
+        // Store the avatar attachment on the server storage
+        // $request->file('avatar')->store('public/avatars');
+
+        // Using 3rd Party Image Service
+        $img = Image::make($request->file('avatar'))->fit(120)->encode('jpg');
+
+        // Rename randomly
+        $imgFileName = $user->id . '_' . $user->username . '_' . uniqid() . '.jpg';
+
+        // Store the image in the folder
+        Storage::put('public/avatars/' . $imgFileName, $img);
+
+        // Delete the old image first
+        $oldAvatar = $user->avatar;
+
+        // Update the database
+        $user->avatar = $imgFileName;
+        $user->save();
+
+        // Action to Delete the old image file
+        if($oldAvatar != "/fallback-avatar.jpg")
+        {
+            Storage::delete(str_replace("/storage/", "public/", $oldAvatar));
+        }
+
+
+        return back()->with("success", "uploaded avatar done");
     }
 }

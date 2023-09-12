@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
@@ -54,3 +55,24 @@ Route::get('/post/{post}/edit', [PostController::class, "edit"])->middleware('ca
 
 // Update Post
 Route::put('/post/{post}/update', [PostController::class, "update"])->middleware('can:update,post');
+
+// Using Gates API
+// 01 - Using Gate With Controller Method
+// Route::get('/admins-only',function() {
+
+
+//     if(Gate::allows('visitAdminPages'))
+//         return "Yes, You are an Admin, that is why you can see this page!";
+
+//     return "Sorry, you are not allowed to visit this page";
+// });
+
+// 02 - Using Gate With Middleware Method
+Route::get('/admins-only',function() {
+    return "Yes, You are an Admin, that is why you can see this page!";
+})->middleware('can:visitAdminPages');
+
+// manage the avatars
+Route::get('/user/avatar/manage', [UserController::class, 'showAvatarForm'])->middleware('mustBeSignedIn');
+
+Route::post('/user/avatar/submit', [UserController::class, 'avatarSubmit'])->middleware('mustBeSignedIn');

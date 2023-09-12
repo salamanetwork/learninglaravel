@@ -33,7 +33,7 @@
 
                 <p class="text-muted small mb-4">
                     <a href="/user/profile/{{$post->user->username}}">
-                        <img class="avatar-tiny" src="https://1.gravatar.com/avatar/5db0999f9e2116f4c1c1e8e6774c5dbf265cf503867d3b6ab9d59552e38b05b7?size=128" />
+                        <img class="avatar-tiny" src="{{$post->user->avatar}}" />
                     </a>
                     Posted by
                     <a href="/user/profile/{{$post->user->username}}">
