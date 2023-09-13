@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Follow;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\View;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
@@ -82,8 +83,7 @@ class UserController extends Controller
                     "Successfully signed out!");
     }
 
-    // Show the Profile of the user himself
-    public function profilePosts(User $user)
+    private function getSharedData(User $user)
     {
         $checkIsFollowing = 0;
 
@@ -102,6 +102,27 @@ class UserController extends Controller
                 ]
             ])->count();
         }
+
+        View::share('sharedData', [
+
+            // output: Gets logged in username from database
+            'username' => $user->username,
+
+            // output: Gets avatar from database
+            'avatar' => $user->avatar,
+
+            // output: Gets posts counts
+            'currentUserPostsCount' => $user->post()->count(),
+
+            // output: Check if user follows another
+            'checkIsFollowing' => $checkIsFollowing,
+        ]);
+    }
+
+    // Show the Profile of the user himself
+    public function profilePosts(User $user)
+    {
+        $this->getSharedData($user);
 
         // output: Gets logged in userid from session
         $userId = auth()->user()->id;
@@ -109,137 +130,89 @@ class UserController extends Controller
         return view("profile_posts", [
 
             // output: Gets logged in username from session
-            'username' => auth()->user()->username,
+            // 'username' => auth()->user()->username,
 
             // output: Gets avatar from database
-            'avatar' => auth()->user()->avatar,
+            // 'avatar' => auth()->user()->avatar,
 
             // output: Gets posts counts
-            'currentUserPostsCount' => Post::where('user_id', $userId)->get()->count(),
+            // 'currentUserPostsCount' => Post::where('user_id', $userId)->get()->count(),
 
             // output: JSON Object Has Objects' of Data
             'currentUserPosts' => Post::where('user_id', $userId)->latest()->get(),
 
             // output: Check if user follows another
-            'checkIsFollowing' => $checkIsFollowing,
+            // 'checkIsFollowing' => $checkIsFollowing,
         ]);
     }
 
      // Show the Profile of the other user
     public function profile(User $user)
     {
-        $checkIsFollowing = 0;
-
-        if(auth()->check())
-        {
-            $checkIsFollowing = Follow::where([
-                [
-                    'user_id',
-                    '=',
-                    auth()->user()->id,
-                ],
-                [
-                    'followed_user_id',
-                    '=',
-                    $user->id,
-                ]
-            ])->count();
-        }
+        $this->getSharedData($user);
 
         return view("profile_posts", [
 
             // output: Gets logged in username from database
-            'username' => $user->username,
+            // 'username' => $user->username,
 
             // output: Gets avatar from database
-            'avatar' => $user->avatar,
+            // 'avatar' => $user->avatar,
 
             // output: Gets posts counts
-            'currentUserPostsCount' => $user->post()->count(),
+            // 'currentUserPostsCount' => $user->post()->count(),
 
             // output: JSON Object Has Objects' of Data
             'currentUserPosts' => $user->post()->latest()->get(),
 
             // output: Check if user follows another
-            'checkIsFollowing' => $checkIsFollowing,
+            // 'checkIsFollowing' => $checkIsFollowing,
         ]);
     }
 
     public function profileFollowers(User $user)
     {
-        $checkIsFollowing = 0;
-
-        if(auth()->check())
-        {
-            $checkIsFollowing = Follow::where([
-                [
-                    'user_id',
-                    '=',
-                    auth()->user()->id,
-                ],
-                [
-                    'followed_user_id',
-                    '=',
-                    $user->id,
-                ]
-            ])->count();
-        }
+        $this->getSharedData($user);
 
         return view("profile_followers", [
 
             // output: Gets logged in username from database
-            'username' => $user->username,
+            // 'username' => $user->username,
 
             // output: Gets avatar from database
-            'avatar' => $user->avatar,
+            // 'avatar' => $user->avatar,
 
             // output: Gets posts counts
-            'currentUserPostsCount' => $user->post()->count(),
+            // 'currentUserPostsCount' => $user->post()->count(),
 
             // output: JSON Object Has Objects' of Data
             'currentUserPosts' => $user->post()->latest()->get(),
 
             // output: Check if user follows another
-            'checkIsFollowing' => $checkIsFollowing,
+            // 'checkIsFollowing' => $checkIsFollowing,
         ]);
     }
 
     public function profileFollowing(User $user)
     {
-        $checkIsFollowing = 0;
-
-        if(auth()->check())
-        {
-            $checkIsFollowing = Follow::where([
-                [
-                    'user_id',
-                    '=',
-                    auth()->user()->id,
-                ],
-                [
-                    'followed_user_id',
-                    '=',
-                    $user->id,
-                ]
-            ])->count();
-        }
+        $this->getSharedData($user);
 
         return view("profile_following", [
 
             // output: Gets logged in username from database
-            'username' => $user->username,
+            // 'username' => $user->username,
 
             // output: Gets avatar from database
-            'avatar' => $user->avatar,
+            // 'avatar' => $user->avatar,
 
             // output: Gets posts counts
-            'currentUserPostsCount' => $user->post()->count(),
+            // 'currentUserPostsCount' => $user->post()->count(),
 
             // output: JSON Object Has Objects' of Data
             'currentUserPosts' => $user->post()->latest()->get(),
 
             // output: Check if user follows another
-            'checkIsFollowing' => $checkIsFollowing,
+            // 'checkIsFollowing' => $checkIsFollowing,
         ]);
     }
 
