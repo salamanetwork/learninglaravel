@@ -82,3 +82,6 @@ Route::post('/user/avatar/submit', [UserController::class, 'avatarSubmit'])->mid
 // Following routes
 Route::post('/follow/{user:username}', [FollowController::class, 'follow'])->middleware('mustBeSignedIn');
 Route::post('/unfollow/{user:username}', [FollowController::class, 'unfollow'])->middleware('mustBeSignedIn');
+
+Route::get('/user/profile/{user:username}/followers', [UserController::class, "profileFollowers"])->middleware('mustBeSignedIn');
+Route::get('/user/profile/{user:username}/following', [UserController::class, "profileFollowing"])->middleware('mustBeSignedIn');

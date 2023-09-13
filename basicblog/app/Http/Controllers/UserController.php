@@ -165,6 +165,84 @@ class UserController extends Controller
         ]);
     }
 
+    public function profileFollowers(User $user)
+    {
+        $checkIsFollowing = 0;
+
+        if(auth()->check())
+        {
+            $checkIsFollowing = Follow::where([
+                [
+                    'user_id',
+                    '=',
+                    auth()->user()->id,
+                ],
+                [
+                    'followed_user_id',
+                    '=',
+                    $user->id,
+                ]
+            ])->count();
+        }
+
+        return view("profile_followers", [
+
+            // output: Gets logged in username from database
+            'username' => $user->username,
+
+            // output: Gets avatar from database
+            'avatar' => $user->avatar,
+
+            // output: Gets posts counts
+            'currentUserPostsCount' => $user->post()->count(),
+
+            // output: JSON Object Has Objects' of Data
+            'currentUserPosts' => $user->post()->latest()->get(),
+
+            // output: Check if user follows another
+            'checkIsFollowing' => $checkIsFollowing,
+        ]);
+    }
+
+    public function profileFollowing(User $user)
+    {
+        $checkIsFollowing = 0;
+
+        if(auth()->check())
+        {
+            $checkIsFollowing = Follow::where([
+                [
+                    'user_id',
+                    '=',
+                    auth()->user()->id,
+                ],
+                [
+                    'followed_user_id',
+                    '=',
+                    $user->id,
+                ]
+            ])->count();
+        }
+
+        return view("profile_following", [
+
+            // output: Gets logged in username from database
+            'username' => $user->username,
+
+            // output: Gets avatar from database
+            'avatar' => $user->avatar,
+
+            // output: Gets posts counts
+            'currentUserPostsCount' => $user->post()->count(),
+
+            // output: JSON Object Has Objects' of Data
+            'currentUserPosts' => $user->post()->latest()->get(),
+
+            // output: Check if user follows another
+            'checkIsFollowing' => $checkIsFollowing,
+        ]);
+    }
+
     public function showAvatarForm()
     {
         return view("avatar_form");
@@ -206,4 +284,7 @@ class UserController extends Controller
 
         return back()->with("success", "uploaded avatar done");
     }
+
+
+
 }
