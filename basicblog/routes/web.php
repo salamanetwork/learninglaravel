@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FollowController;
 
 
 Route::get('/404', function () {
@@ -76,3 +77,8 @@ Route::get('/admins-only',function() {
 Route::get('/user/avatar/manage', [UserController::class, 'showAvatarForm'])->middleware('mustBeSignedIn');
 
 Route::post('/user/avatar/submit', [UserController::class, 'avatarSubmit'])->middleware('mustBeSignedIn');
+
+
+// Following routes
+Route::post('/follow/{user:username}', [FollowController::class, 'follow'])->middleware('mustBeSignedIn');
+Route::post('/unfollow/{user:username}', [FollowController::class, 'unfollow'])->middleware('mustBeSignedIn');
