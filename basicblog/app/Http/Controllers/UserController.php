@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Follow;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Intervention\Image\Facades\Image;
@@ -81,8 +82,27 @@ class UserController extends Controller
                     "Successfully signed out!");
     }
 
+    // Show the Profile of the user himself
     public function profilePosts(User $user)
     {
+        $checkIsFollowing = 0;
+
+        if(auth()->check())
+        {
+            $checkIsFollowing = Follow::where([
+                [
+                    'user_id',
+                    '=',
+                    auth()->user()->id,
+                ],
+                [
+                    'followed_user_id',
+                    '=',
+                    $user->id,
+                ]
+            ])->count();
+        }
+
         // output: Gets logged in userid from session
         $userId = auth()->user()->id;
 
@@ -100,11 +120,31 @@ class UserController extends Controller
             // output: JSON Object Has Objects' of Data
             'currentUserPosts' => Post::where('user_id', $userId)->latest()->get(),
 
+            // output: Check if user follows another
+            'checkIsFollowing' => $checkIsFollowing,
         ]);
     }
 
+     // Show the Profile of the other user
     public function profile(User $user)
     {
+        $checkIsFollowing = 0;
+
+        if(auth()->check())
+        {
+            $checkIsFollowing = Follow::where([
+                [
+                    'user_id',
+                    '=',
+                    auth()->user()->id,
+                ],
+                [
+                    'followed_user_id',
+                    '=',
+                    $user->id,
+                ]
+            ])->count();
+        }
 
         return view("profile_posts", [
 
@@ -119,6 +159,9 @@ class UserController extends Controller
 
             // output: JSON Object Has Objects' of Data
             'currentUserPosts' => $user->post()->latest()->get(),
+
+            // output: Check if user follows another
+            'checkIsFollowing' => $checkIsFollowing,
         ]);
     }
 
