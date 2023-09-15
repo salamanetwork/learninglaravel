@@ -6,7 +6,7 @@
     <a class="btn btn-lg">
         <i class="btn bi bi-chat" style="font-size: 2rem; color: cornflowerblue;"></i>
     </a>
-    <a href="/user/profile/posts">
+    <a href="/user/profile/{{auth()->user()->username}}">
         <img class="avatar-tiny" src="{{auth()->user()->avatar}}" />
     </a>
     &nbsp;&nbsp;&nbsp;&nbsp;

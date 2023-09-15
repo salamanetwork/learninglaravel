@@ -7,10 +7,10 @@
 > --}}
 <x-user_profile :sharedData="$sharedData">
     <div class="list-group">
-        @foreach($currentUserPosts as $post)
-            <a href="/post/{{$post->id}}" class="list-group-item list-group-item-action">
-                <img class="avatar-tiny" src="{{$sharedData['avatar']}}" />
-                <strong>{{$post->title}}</strong> on {{date( 'd-m-Y h:m ', strtotime($post->created_at))}}
+        @foreach($followers as $follower)
+            <a href="/user/profile/{{$follower->userDoingFollowing->username}}" class="list-group-item list-group-item-action">
+                <img class="avatar-tiny" src="{{$follower->userDoingFollowing->avatar}}" />
+                {{$follower->userDoingFollowing->username}}
                 </a>
         @endforeach
     </div>

@@ -116,6 +116,12 @@ class UserController extends Controller
 
             // output: Check if user follows another
             'checkIsFollowing' => $checkIsFollowing,
+
+            // output: Follower count
+            'followersCount' => $user->followers()->count(),
+
+            // output: Following count
+            'followingCount' => $user->following()->count(),
         ]);
     }
 
@@ -174,7 +180,13 @@ class UserController extends Controller
     {
         $this->getSharedData($user);
 
+        // Return the JSON
+        // return $user->followers()->latest()->get();
+
         return view("profile_followers", [
+
+            // Get Followers -> return JSON
+            'followers' => $user->followers()->latest()->get(),
 
             // output: Gets logged in username from database
             // 'username' => $user->username,
@@ -198,6 +210,9 @@ class UserController extends Controller
         $this->getSharedData($user);
 
         return view("profile_following", [
+
+            // Get Followers -> return JSON
+            'following' => $user->following()->latest()->get(),
 
             // output: Gets logged in username from database
             // 'username' => $user->username,
