@@ -130,13 +130,13 @@ class UserController extends Controller
         return view("profile_posts", [
 
             // output: Gets logged in username from session
-            // 'username' => auth()->user()->username,
+            'username' => auth()->user()->username,
 
             // output: Gets avatar from database
-            // 'avatar' => auth()->user()->avatar,
+            'avatar' => auth()->user()->avatar,
 
             // output: Gets posts counts
-            // 'currentUserPostsCount' => Post::where('user_id', $userId)->get()->count(),
+            'currentUserPostsCount' => Post::where('user_id', $userId)->get()->count(),
 
             // output: JSON Object Has Objects' of Data
             'currentUserPosts' => Post::where('user_id', $userId)->latest()->get(),
