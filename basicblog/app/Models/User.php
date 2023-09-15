@@ -53,11 +53,13 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    // get followers
     public function followers()
     {
         return $this->hasMany(Follow::class, 'followed_user_id');
     }
 
+    // get following
     public function following()
     {
         return $this->hasMany(Follow::class, 'user_id');
@@ -68,4 +70,18 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class, 'user_id');
     }
+
+    // get feed posts
+    public function feedPosts()
+    {
+        return $this->hasManyThrough(
+            Post::class,
+            Follow::class,
+            'user_id',
+            'user_id',
+            'id',
+            'followed_user_id'
+        );
+    }
+
 }

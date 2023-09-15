@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
+
+
     // show signup form
     public function signupForm()
     {
@@ -35,10 +37,27 @@ class UserController extends Controller
         // Login the user automatically
         auth()->login($user);
 
+
         // success
         // redirect the user back to the home page
         // Setup a flash message too
         return redirect('/')->with("success", "Successfully created a new user!");
+    }
+
+    public function homeFeedPosts(User $user)
+    {
+        $feeds = $user->feedPosts()->latest()->get();
+
+        if(auth()->check())
+        {
+            return view('home_guest', ['posts' => $feeds]);
+        }
+        else
+        {
+            unset($feeds);
+
+            return view('home_guest');
+        }
     }
 
     public function signin(Request $request)
@@ -48,19 +67,23 @@ class UserController extends Controller
             'password' => ['required'],
         ]);
 
+
         // try to authenticate
         if(auth()->attempt([
             'username' => $data['username'],
             'password' => $data['password']
-        ]))
+            ]))
+
         {
+
             // Store the authentication information in the session/Cookie
             $request->session()->regenerate();
 
             // success
             // redirect the user back to the home page
             // Setup a flash message too
-            return redirect('/')->with("success", "Successfully signed in!");
+            return redirect('/' . $data['username'] . '/feeds')->with("success", "Successfully signed in!");
+            // return $this->showUserHomePage();
         }
         else
         {
@@ -122,6 +145,9 @@ class UserController extends Controller
 
             // output: Following count
             'followingCount' => $user->following()->count(),
+
+            // output: feed posts
+            'feedPosts' => $user->feedPosts()->latest()->get(),
         ]);
     }
 

@@ -11,9 +11,9 @@
 
                 <!-- Left-aligned links -->
                 <div class="col-lg-5 align-content-lg-center">
-                    <ul class="navbar-nav">
+                    {{-- <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/') }}">Home</a>
+                            <a class="nav-link" href="{{ route('home') }}">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/about') }}">About</a>
@@ -30,7 +30,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/help') }}">Help</a>
                         </li>
-                    </ul>
+                    </ul> --}}
                 </div>
 
                 <!-- Right-aligned login form (Inline Form) -->

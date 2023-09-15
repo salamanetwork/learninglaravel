@@ -13,7 +13,7 @@ Route::get('/404', function () {
 
 Route::get('/', function () {
     return view('home_guest');
-});
+})->name('home');
 
 Route::get('/about', function () {
     return view('home_guest');
@@ -22,6 +22,9 @@ Route::get('/about', function () {
 Route::get('/contact', function () {
     return view('home_guest');
 });
+
+// home feed posts
+Route::get('/{user:username}/feeds', [UserController::class, "homeFeedPosts"])->middleware('mustBeSignedIn');
 
 // User routes
 Route::get('/user/signup-form', [UserController::class, "signupForm"])->name("login");

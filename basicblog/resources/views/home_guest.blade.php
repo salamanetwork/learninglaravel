@@ -5,6 +5,7 @@
     <div class="container-fluid">
         <div class="row">
             @auth
+
                 @include('home_user')
             @else
 
