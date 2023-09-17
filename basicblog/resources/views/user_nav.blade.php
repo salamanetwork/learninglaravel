@@ -1,6 +1,6 @@
 <!-- Right-aligned login form (Inline Form) -->
 <div class="col-lg-5 mx-auto">
-    <a class="btn btn-lg">
+    <a class="btn btn-lg header-search-icon">
         <i class="btn bi bi-search" style="font-size: 2rem; color: cornflowerblue;"></i>
     </a>
     <a class="btn btn-lg">

@@ -26,7 +26,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
     <!-- Include app.css -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}"> --}}
+
+    @vite(["resources/css/app.css"])
+    @vite(["resources/js/app.js"])
 
     <!-- Your custom styles or additional CSS imports can go here -->
 </head>
