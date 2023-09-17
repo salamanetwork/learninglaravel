@@ -19,6 +19,10 @@ Route::get('/', function () {
     return view('home_guest');
 })->name('home');
 
+
+// Search Routes
+Route::get('/search/{term}', [PostController::class, 'search']);
+
 // home feed posts
 Route::get('/{user:username}/feeds', [UserController::class, "homeFeedPosts"])->middleware('mustBeSignedIn')->name('feeds');
 

@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Post extends Model
 {
+    use Searchable;
     use HasFactory;
 
     protected $fillable = [
@@ -14,6 +16,15 @@ class Post extends Model
         'content',
         'user_id',
     ];
+
+    // for search
+    public function toSearchableArray()
+    {
+        return [
+            'title' => $this->title,
+            'content' => $this->content,
+        ];
+    }
 
     // Create A relationship to 'user_id' with 'users' table
     public function user()

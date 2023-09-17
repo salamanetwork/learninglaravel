@@ -109,4 +109,22 @@ class PostController extends Controller
                     "Successfully updated"
                 );
      }
+
+     // search function
+     public function search($term)
+     {
+        // return
+        //     Post::where('title', 'LIKE', '%' . $term .'%')
+        //         ->orWhere('content', 'LIKE', '%' . $term .'%')
+        //             ->with('user:id,username,avatar')->get();
+
+
+        // Using Scout Package
+        $posts = Post::search($term)->get();
+
+        // Using load to get user information
+        $posts->load('user:id,username,avatar');
+
+        return $posts;
+     }
 }
