@@ -1,5 +1,5 @@
 
-<x-layout>
+<x-layout pageTitle="{{$sharedData['username']}}'s profile">
 
     @include('nav_guest')
 

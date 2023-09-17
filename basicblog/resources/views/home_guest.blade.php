@@ -5,9 +5,10 @@
     <div class="container-fluid">
         <div class="row">
             @auth
-
                 @include('home_user')
             @else
+
+            {{$posts = null}}
 
             <!-- Left Column (larger) -->
             <div class="col-md-10 mt-5 mb-5">

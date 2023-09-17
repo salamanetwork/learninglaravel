@@ -1,5 +1,6 @@
 <?php
 
+use auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
@@ -12,19 +13,14 @@ Route::get('/404', function () {
 });
 
 Route::get('/', function () {
+    if(auth()->check())
+        return redirect('/' . auth()->user()->username . '/feeds');
+    else
     return view('home_guest');
 })->name('home');
 
-Route::get('/about', function () {
-    return view('home_guest');
-});
-
-Route::get('/contact', function () {
-    return view('home_guest');
-});
-
 // home feed posts
-Route::get('/{user:username}/feeds', [UserController::class, "homeFeedPosts"])->middleware('mustBeSignedIn');
+Route::get('/{user:username}/feeds', [UserController::class, "homeFeedPosts"])->middleware('mustBeSignedIn')->name('feeds');
 
 // User routes
 Route::get('/user/signup-form', [UserController::class, "signupForm"])->name("login");

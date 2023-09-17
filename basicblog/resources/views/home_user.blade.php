@@ -5,7 +5,7 @@
             <div class="row">
                 <!-- Left Column (larger) -->
                 <div class="col-md-12 mt-5 mb-5">
-                    <h1 class="text-center font-weight-bolder">Welcome, <strong><span style="color: darkred">{{ auth()->user()->username }}</span></strong> to my Blog!</h1>
+                    <h1 class="text-center font-weight-bolder">Welcome, <strong><span style="color: darkred">{{ auth()->user()->username }}</span></strong> Check Your Last Feed!</h1>
                     <hr />
 
                     @unless($posts->isEmpty())
@@ -14,9 +14,14 @@
                         @foreach($posts as $post)
                             <a href="/post/{{$post->id}}" class="list-group-item list-group-item-action">
                                 <img class="avatar-tiny" src="{{$post->user->avatar}}" />
-                                <strong>{{$post->title}}</strong> on {{date( 'd-m-Y h:m ', strtotime($post->created_at))}}
+                                <strong>{{$post->title}}</strong> by {{$post->user->username}} on {{date( 'd-m-Y h:m ', strtotime($post->created_at))}}
                                 </a>
                         @endforeach
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="mt-4">
+                        {{ $posts->links() }}
                     </div>
 
                     @else

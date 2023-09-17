@@ -46,15 +46,15 @@ class UserController extends Controller
 
     public function homeFeedPosts(User $user)
     {
-        $feeds = $user->feedPosts()->latest()->get();
+        $posts = $user->feedPosts()->latest()->paginate(5);
 
         if(auth()->check())
         {
-            return view('home_guest', ['posts' => $feeds]);
+            return view('home_guest', ['posts' => $posts, 'user' => $user]);
         }
         else
         {
-            unset($feeds);
+            $posts = null;
 
             return view('home_guest');
         }
