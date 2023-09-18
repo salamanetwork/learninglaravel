@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Follow;
 use Illuminate\Http\Request;
+use App\Events\OurExampleEvent;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\View;
 use Intervention\Image\Facades\Image;
@@ -79,6 +80,12 @@ class UserController extends Controller
             // Store the authentication information in the session/Cookie
             $request->session()->regenerate();
 
+            // New Event with data
+            event(new OurExampleEvent([
+                'username' => auth()->user()->username,
+                'action' => 'signin',
+            ]));
+
             // success
             // redirect the user back to the home page
             // Setup a flash message too
@@ -97,6 +104,12 @@ class UserController extends Controller
 
     public function signout(Request $request)
     {
+        // New Event with data
+        event(new OurExampleEvent([
+            'username' => auth()->user()->username,
+            'action' => 'signout',
+        ]));
+
         auth()->logout();
 
         return
