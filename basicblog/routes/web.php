@@ -1,6 +1,6 @@
 <?php
 
-use auth;
+
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
