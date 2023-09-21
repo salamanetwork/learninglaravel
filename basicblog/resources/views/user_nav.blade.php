@@ -3,7 +3,7 @@
     <a class="btn btn-lg header-search-icon">
         <i class="btn bi bi-search" style="font-size: 2rem; color: cornflowerblue;"></i>
     </a>
-    <a class="btn btn-lg">
+    <a class="btn btn-lg header-chat-icon">
         <i class="btn bi bi-chat" style="font-size: 2rem; color: cornflowerblue;"></i>
     </a>
     <a href="/user/profile/{{auth()->user()->username}}">

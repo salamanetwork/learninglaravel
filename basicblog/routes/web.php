@@ -1,6 +1,8 @@
 <?php
 
 
+use App\Events\ChatMessage;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
@@ -19,6 +21,31 @@ Route::get('/', function () {
     return view('home_guest');
 })->name('home');
 
+
+// Chat Routes
+Route::post('/send-chat-message', function(Request $request) {
+
+    // validate the message
+    $data = $request->validate([
+        'textvalue' => 'required',
+    ]);
+
+    // trim the message
+    if(!trim(strip_tags($data['textvalue'])))
+    {
+        return response()->noContent();
+    }
+
+    // broadcast the message
+    broadcast(new ChatMessage([
+        'username' => auth()->user()->username,
+        'textvalue' => strip_tags($request->textvalue),
+        'avatar' => auth()->user()->avatar,
+    ]))->toOthers();
+
+    return response()->noContent();
+
+})->middleware('mustBeSignedIn');
 
 // Search Routes
 Route::get('/search/{term}', [PostController::class, 'search']);

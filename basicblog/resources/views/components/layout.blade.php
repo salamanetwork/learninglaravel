@@ -52,6 +52,10 @@
     </div>
 <!-- End of page content -->
 
+@auth
+    <div data-username="{{auth()->user()->username}}" data-avatar="{{auth()->user()->avatar}}" id="chat-wrapper" class="chat-wrapper shadow border-top border-left border-right"></div>
+@endauth
+
         <!-- Latest Popper.js and Bootstrap JavaScript from CDNs -->
         <script
             src="https://code.jquery.com/jquery-3.6.0.min.js"
