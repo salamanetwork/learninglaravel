@@ -63,7 +63,7 @@ export default class Chat {
   }
 
   openConnection() {
-    Echo.private("chatchannel").listen("ChatMessage", e => {
+    Echo.private("chatChannel").listen("ChatMessage", e => {
       this.displayMessageFromServer(e.chat)
     })
   }
@@ -91,6 +91,7 @@ export default class Chat {
     <div id="chat" class="chat-log"></div>
 
     <form id="chatForm" class="chat-form border-top">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
       <input type="text" class="chat-field" id="chatField" placeholder="Type a message…" autocomplete="off">
     </form>
     `
