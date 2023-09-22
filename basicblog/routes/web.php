@@ -14,6 +14,7 @@ use App\Http\Controllers\FollowController;
 /*
     php artisan route:list
     php artisan route:clear
+    php artisan config:cache
 */
 
 Route::get('/404', function () {

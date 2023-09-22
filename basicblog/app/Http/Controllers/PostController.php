@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendNewPostEmail;
 use App\Models\Post;
-use Illuminate\Support\Str;
+// use App\Mail\NewPostEmail;
 
+use Illuminate\Support\Str;
 use function Ramsey\Uuid\v1;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
 {
@@ -37,6 +40,22 @@ class PostController extends Controller
         // Using 'Post' model to store the data
         // Remember to set the $fillable property in the Post Model
         $submitedData = Post::create($data);
+
+        // Dispatch a job <=> async
+        dispatch(new SendNewPostEmail([
+            'sendTo' => auth()->user()->email,
+            'name' => auth()->user()->username,
+            'title' => $submitedData->title,
+        ]));
+
+
+        // Sending Email to the user
+        // Mail::to(auth()->user()->email)->send(new NewPostEmail(
+        //     [
+        //         'name' => auth()->user()->username,
+        //         'title' => $submitedData->title,
+        //     ]
+        // ));
 
         // Redirect to the submited post page
         // last post id page
