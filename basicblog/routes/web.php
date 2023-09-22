@@ -10,6 +10,12 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\FollowController;
 
 
+// Notes:
+/*
+    php artisan route:list
+    php artisan route:clear
+*/
+
 Route::get('/404', function () {
     return view('404');
 });
@@ -21,6 +27,12 @@ Route::get('/', function () {
     return view('home_guest');
 })->name('home');
 
+Route::get('/f', function () {
+    if(auth()->check())
+        return redirect('/' . auth()->user()->username . '/feeds');
+    else
+    return view('home_guest');
+});
 
 // Chat Routes
 Route::post('/send-chat-message', function(Request $request) {
@@ -118,28 +130,30 @@ Route::post('/unfollow/{user:username}', [FollowController::class, 'unfollow'])-
 Route::get('/user/profile/{user:username}/followers', [UserController::class, "profileFollowers"])->middleware('mustBeSignedIn');
 Route::get('/user/profile/{user:username}/following', [UserController::class, "profileFollowing"])->middleware('mustBeSignedIn');
 
-// SPA
-Route::get(
-    '/user/profile/{user:username}/followers/raw',
-    [UserController::class, "profileFollowersRaw"]
-)->middleware('mustBeSignedIn');
+// Grouping routes for SPA & Cached Routes for 20 seconds
+Route::middleware("cache.headers:public;max_age=20;etag")->group(function(){
+    // SPA
+    Route::get(
+        '/user/profile/{user:username}/followers/raw',
+        [UserController::class, "profileFollowersRaw"]
+    )
+    ->middleware('mustBeSignedIn');
 
-Route::get(
-    '/user/profile/{user:username}/following/raw',
-    [UserController::class, "profileFollowingRaw"]
-)->middleware('mustBeSignedIn');
+    Route::get(
+        '/user/profile/{user:username}/following/raw',
+        [UserController::class, "profileFollowingRaw"]
+    )
+    ->middleware('mustBeSignedIn');
 
-Route::get(
-    '/user/profile/posts/raw',
-    [UserController::class, "profilePostsRaw"]
-)->middleware('mustBeSignedIn');
+    Route::get(
+        '/user/profile/posts/raw',
+        [UserController::class, "profilePostsRaw"]
+    )
+    ->middleware('mustBeSignedIn');
 
-Route::get(
-    '/user/profile/{user:username}/raw',
-    [UserController::class, "profileRaw"]
-)->middleware('mustBeSignedIn');
-
-
-Route::get('/x', function() {
-    return "x";
+    Route::get(
+        '/user/profile/{user:username}/raw',
+        [UserController::class, "profileRaw"]
+    )
+    ->middleware('mustBeSignedIn');
 });

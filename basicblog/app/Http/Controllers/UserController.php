@@ -273,36 +273,44 @@ class UserController extends Controller
     // For SPA
     public function profilePostsRaw(User $user)
     {
-        return response()->json([
-            'theHTML' => 'THIS IS A POST',
+        $this->getSharedData($user);
 
+        return response()->json([
+            'theHTML' => view('profile_posts_only', ['currentUserPosts' => $user->post()->latest()->get()])->render(),
+            'pageTitle' => $user->username . "'s Profile",
         ]);
     }
 
     // For SPA
     public function profileRaw(User $user)
     {
-        return response()->json([
-            'theHTML' => 'THIS IS A POST',
+        $this->getSharedData($user);
 
+        return response()->json([
+            'theHTML' => view('profile_posts_only', ['currentUserPosts' => $user->post()->latest()->get()])->render(),
+            'pageTitle' => $user->username . "'s Profile",
         ]);
     }
 
-    // For SPA
+    // For SPA Followers
     public function profileFollowersRaw(User $user)
     {
-        return response()->json([
-            'theHTML' => 'THIS IS A POST',
+        $this->getSharedData($user);
 
+        return response()->json([
+            'theHTML' => view('profile_followers_only', ['followers' => $user->followers()->latest()->get()])->render(),
+            'pageTitle' => $user->username . "'s Followers",
         ]);
     }
 
-    // For SPA
+    // For SPA Followings
     public function profileFollowingRaw(User $user)
     {
-        return response()->json([
-            'theHTML' => 'THIS IS A POST',
+        $this->getSharedData($user);
 
+        return response()->json([
+            'theHTML' => view('profile_followings_only', ['following' => $user->following()->latest()->get()])->render(),
+            'pageTitle' => $user->username . "'s Followings",
         ]);
     }
 
