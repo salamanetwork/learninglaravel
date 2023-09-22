@@ -191,7 +191,7 @@ class UserController extends Controller
         ]);
     }
 
-     // Show the Profile of the other user
+    // Show the Profile of the other user
     public function profile(User $user)
     {
         $this->getSharedData($user);
@@ -270,6 +270,45 @@ class UserController extends Controller
         ]);
     }
 
+    // For SPA
+    public function profilePostsRaw(User $user)
+    {
+        return response()->json([
+            'theHTML' => 'THIS IS A POST',
+
+        ]);
+    }
+
+    // For SPA
+    public function profileRaw(User $user)
+    {
+        return response()->json([
+            'theHTML' => 'THIS IS A POST',
+
+        ]);
+    }
+
+    // For SPA
+    public function profileFollowersRaw(User $user)
+    {
+        return response()->json([
+            'theHTML' => 'THIS IS A POST',
+
+        ]);
+    }
+
+    // For SPA
+    public function profileFollowingRaw(User $user)
+    {
+        return response()->json([
+            'theHTML' => 'THIS IS A POST',
+
+        ]);
+    }
+
+
+
+    // Manage The Avatar
     public function showAvatarForm()
     {
         return view("avatar_form");

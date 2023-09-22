@@ -73,9 +73,9 @@ export default class Chat {
       "beforeend",
       DOMPurify.sanitize(`
     <div class="chat-other">
-        <a href="/profile/${data.username}"><img class="avatar-tiny" src="${data.avatar}"></a>
+        <a href="/user/profile/${data.username}"><img class="avatar-tiny" src="${data.avatar}"></a>
         <div class="chat-message"><div class="chat-message-inner">
-          <a href="/profile/${data.username}"><strong>${data.username}:</strong></a>
+          <a href="/user/profile/${data.username}"><strong>${data.username}:</strong></a>
           ${data.textvalue}
         </div></div>
       </div>

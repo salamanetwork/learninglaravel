@@ -117,3 +117,29 @@ Route::post('/unfollow/{user:username}', [FollowController::class, 'unfollow'])-
 
 Route::get('/user/profile/{user:username}/followers', [UserController::class, "profileFollowers"])->middleware('mustBeSignedIn');
 Route::get('/user/profile/{user:username}/following', [UserController::class, "profileFollowing"])->middleware('mustBeSignedIn');
+
+// SPA
+Route::get(
+    '/user/profile/{user:username}/followers/raw',
+    [UserController::class, "profileFollowersRaw"]
+)->middleware('mustBeSignedIn');
+
+Route::get(
+    '/user/profile/{user:username}/following/raw',
+    [UserController::class, "profileFollowingRaw"]
+)->middleware('mustBeSignedIn');
+
+Route::get(
+    '/user/profile/posts/raw',
+    [UserController::class, "profilePostsRaw"]
+)->middleware('mustBeSignedIn');
+
+Route::get(
+    '/user/profile/{user:username}/raw',
+    [UserController::class, "profileRaw"]
+)->middleware('mustBeSignedIn');
+
+
+Route::get('/x', function() {
+    return "x";
+});
