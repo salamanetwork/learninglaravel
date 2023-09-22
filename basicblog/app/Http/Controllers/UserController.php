@@ -184,7 +184,10 @@ class UserController extends Controller
             'currentUserPostsCount' => Post::where('user_id', $userId)->get()->count(),
 
             // output: JSON Object Has Objects' of Data
-            'currentUserPosts' => Post::where('user_id', $userId)->latest()->get(),
+            'currentUserPosts' => Post::where('user_id', $userId)->latest()->paginate(),
+
+            // output: Gets posts to pages
+            // 'posts' => Post::where('user_id', $userId)->latest()->paginate(),
 
             // output: Check if user follows another
             // 'checkIsFollowing' => $checkIsFollowing,
@@ -208,7 +211,7 @@ class UserController extends Controller
             // 'currentUserPostsCount' => $user->post()->count(),
 
             // output: JSON Object Has Objects' of Data
-            'currentUserPosts' => $user->post()->latest()->get(),
+            'currentUserPosts' => $user->post()->latest()->paginate(),
 
             // output: Check if user follows another
             // 'checkIsFollowing' => $checkIsFollowing,
