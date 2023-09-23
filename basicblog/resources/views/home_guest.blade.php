@@ -8,8 +8,6 @@
                 @include('home_user')
             @else
 
-            {{$posts = null}}
-
             <!-- Left Column (larger) -->
             <div class="col-md-10 mt-5 mb-5">
                 <h1 class="font-weight-bolder">Welcome to my Blog!</h1>
@@ -59,9 +57,19 @@
 
                 <div>
                     <h5 class="text-left text-danger font-weight-bolder mt-5">
+                        Our users have authored {{$posts}} posts.
+                    </h5>
+                </div>
+
+                {{-- <hr /> --}}
+
+                <div>
+                    <h5 class="text-left text-danger font-weight-bolder mt-5">
                         Please, Signin or Signup.
                     </h5>
                 </div>
+
+
             </div>
 
 

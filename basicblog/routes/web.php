@@ -1,9 +1,11 @@
 <?php
 
 
+use App\Models\Post;
 use App\Events\ChatMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
@@ -25,14 +27,35 @@ Route::get('/', function () {
     if(auth()->check())
         return redirect('/' . auth()->user()->username . '/feeds');
     else
-    return view('home_guest');
+    {
+        // Store with automatic cache::remember
+        $posts = Cache::remember('posts', 20,function(){
+            // sleep(5);
+            return Post::count();
+        });
+
+        return view('home_guest', ['posts' => $posts]);
+    }
 })->name('home');
 
 Route::get('/f', function () {
     if(auth()->check())
         return redirect('/' . auth()->user()->username . '/feeds');
     else
-    return view('home_guest');
+    {
+        // Store with Manual Cache
+        if(Cache::has('posts'))
+        {
+            $posts = Cache::get('posts');
+        }
+        else
+        {
+            // sleep(5);
+            $posts = Post::count();
+            Cache::put('posts', $posts, 20);
+        }
+        return view('home_guest', ['posts' => $posts]);
+    }
 });
 
 // Chat Routes

@@ -55,9 +55,9 @@ class UserController extends Controller
         }
         else
         {
-            $posts = null;
+            $posts = Post::count();
 
-            return view('home_guest');
+            return view('home_guest', ['posts' => $posts]);
         }
     }
 
