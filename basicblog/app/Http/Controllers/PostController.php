@@ -146,4 +146,38 @@ class PostController extends Controller
 
         return $posts;
      }
+
+     // API
+     public function createPostAPI(Request $request)
+     {
+        // Validate the incoming data from request
+        $data = $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+        ]);
+
+        // Apply modifications on the data
+        $data['title'] = strip_tags($data['title']);
+        $data['content'] = strip_tags($data['content']);
+
+        // Add Dynamic User ID from the current user session
+        $data['user_id'] = auth()->id();
+
+        // Store in database
+        // Using 'Post' model to store the data
+        // Remember to set the $fillable property in the Post Model
+        $submitedData = Post::create($data);
+
+        // Dispatch a job <=> async
+        dispatch(new SendNewPostEmail([
+            'sendTo' => auth()->user()->email,
+            'name' => auth()->user()->username,
+            'title' => $submitedData->title,
+        ]));
+
+        // last post id page
+        return "Post " . $submitedData->title . " Created With Id: " . $submitedData->id;
+
+    }
+
 }

@@ -362,6 +362,26 @@ class UserController extends Controller
         return back()->with("success", "uploaded avatar done");
     }
 
+    // REST API
+
+    // Login API
+    public function loginAPI(Request $request)
+    {
+        $data = $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+
+        if(auth()->attempt($data))
+        {
+            $user = User::where('username', $data['username'])->first();
+            $token = $user->createToken('blogtoken')->plainTextToken;
+            return $token;
+        }
+
+        return "Failed to login though API!";
+    }
+
 
 
 }
