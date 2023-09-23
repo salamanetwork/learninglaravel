@@ -180,4 +180,14 @@ class PostController extends Controller
 
     }
 
+    // delete post from the database
+    public function deletePostAPI(Post $post)
+    {
+        $title = $post->title;
+
+        $post->delete();
+
+        return "Post ($title) deleted successfully";
+    }
+
 }

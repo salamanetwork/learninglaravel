@@ -22,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/user/signin', [UserController::class, 'loginAPI']);
 Route::post('/post/create', [PostController::class, 'createPostAPI'])->middleware('auth:sanctum');
+Route::delete('/post/{post}/delete', [PostController::class, 'deletePostAPI'])->middleware('auth:sanctum', 'can:delete,post'); // using policy
